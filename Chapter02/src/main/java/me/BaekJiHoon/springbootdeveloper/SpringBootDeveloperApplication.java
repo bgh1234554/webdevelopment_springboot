@@ -1,4 +1,4 @@
-package me.BaekJiHoon.BaekJiHoon.springbootdeveloper;
+package me.BaekJiHoon.springbootdeveloper;
 /*
     모든 프로젝트에는 main에 해당하는 클래스가 존재하는데, 이 클래스가 main으로 사용될 예정.
  */
