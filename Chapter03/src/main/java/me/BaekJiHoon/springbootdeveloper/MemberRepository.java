@@ -7,5 +7,5 @@ import java.util.List;
 
 @Repository
 public interface MemberRepository extends JpaRepository<Member,Long> {
-    List<Member> findAll();
+    //List<Member> findAll(); //JpaRepository라는 springboot 관련 클래스에서 메서드를 상속 받음.
 }

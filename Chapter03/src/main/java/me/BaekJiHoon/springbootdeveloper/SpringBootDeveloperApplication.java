@@ -56,10 +56,24 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
         annotationProcessor : 컴파일 시에 Annotation을 처리할 때 사용하는 도구의 의존성 지정.
 
         프레젠테이션, 서비스, 퍼시스턴스 계층 만들기
-            1. 프레젠테이션 계층에 속하는 컨트롤러 관련 코드 작성 -> TestController (멤버에 명령을 보내니까 Controller?)
-            2. 비즈니스 계층 코드 -> TestService.java (View 인것 같다... 정보를 생성하니까?)
+            1. 프레젠테이션 계층에 속하는 컨트롤러 관련 코드 작성 -> TestController
+            2. 비즈니스 계층 코드 -> TestService.java
             3. 퍼시스턴스 계층 코드 -> Member.java -> 실제 DB에 접근하는 코드 (Model인것 같다)
             4. 매핑 작업에는 인터페이스 파일이 필요. MemberRepository 인터페이스를 같은 위치에 생성.
+
+       작동 확인하기
+            1단계 -> Resources 폴더에 SQL문 추가
+                resources -> new -> file -> data.sql
+            2단계 -> application.yml 파일 수정
+            3단계 -> 서버 실행 후 Ctrl+F눌러서 Table 생성됐는지 확인
+            4단계 -> Postman에서 HTTP 요청을 시도해본다.
+                1) 포스트맨 실행
+                2) HTTP 메서드를 GET으로 설정하고 URL에 https://localhost:8080로 설정
+                3) SEND 버튼 누르기
+                4) 200 OK인지 확인하기
+                
+HTTP 요청 ---> TestController <-----> TestService <-----> MemberRepository <-----> Database
+url:/test ---> 프레젠테이션 계층 <----> 비즈니스 계층 <----> 퍼시스턴스 계층 <---> 데이터베이스
  */
 @SpringBootApplication
 public class SpringBootDeveloperApplication {

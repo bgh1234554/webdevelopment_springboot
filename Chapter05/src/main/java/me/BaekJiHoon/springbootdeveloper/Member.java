@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 public class Member {
-    @Id
+    @Id //Primary Key로 쓰겠다.
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)      // 테이블 상에서의 컬럼 명이 id라는 의미
     private Long id;    // DB 테이블의 'id' 컬럼과 매칭
