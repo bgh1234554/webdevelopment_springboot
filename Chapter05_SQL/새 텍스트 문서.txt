@@ -1,0 +1,6 @@
+데이터 처리 4요소: 생성하기, 조회하기, 수정하기, 삭제하기
+CREATE, READ, UPDATE, DELETE (CRUD)
+POST, GET, PUT, DELETE (Postman에서 쓰는 HTTP 메서드)
+
+READ
+1. SELECT
