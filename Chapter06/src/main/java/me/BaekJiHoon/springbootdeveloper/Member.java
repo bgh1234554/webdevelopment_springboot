@@ -5,8 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor //인자 없는 생성자
+@AllArgsConstructor //모든 인스턴스 있는 생성자
 @Getter //get..를 사용할 수 있다.
 @Entity
 public class Member {
