@@ -17,7 +17,7 @@ public class BlogApiController {
 
     //HTTP 메서드가 POST일 때 전달받은 URL과 동일하면 지금 정의하는 메서드와 매핑
     @PostMapping("api/articles")
-    //@ResponseBody로 요청 본문값 매핑
+    //@RequestBody로 요청 본문값 매핑
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request){
         Article savedArticle = blogService.save(request);
 
@@ -30,6 +30,7 @@ public class BlogApiController {
             지금의 경우 /api/articles는 addArticle() 메서드와 매핑.
         3. @RequestBody: HTTP 요청을 할 때, 응답에 해당하는 값을
         @RequestBody Annotation이 붙은 대상 객체인 AddArticleRequest에 매핑.
+        (알아서 AddArticleRequest 메서드를 호출한다는 느낌?)
         4. ResponseEntity.status().body()는 응답코드로 201, 즉 Created를 응답하고 테이블에 저장된 객체를 반환한다.
 
         200 OK

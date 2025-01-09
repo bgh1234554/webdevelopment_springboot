@@ -30,11 +30,18 @@ JpaRepository 클래스를 상속 받을 때, 엔티티 Article과 PK의 Long을
             repository 패키지와 같은 라인에 dto 패키지 생성
             -> 컨트롤러에서 요청한 본문을 받을 객체인 AddArticleRequest.java 파일을 생성.
 
-            DTO (Data Transfer Object) - 계층끼리 데이터를 교환하기 위해 사용하는 객체
-            DAO는 데이터베이스와 연결되고, 데이터를 조회하고 수정하는 사용되는 객체라 비교가 필요하다.
-            DAO의 경우에는 데이터 수정 관련된 로직이 포함되지만,
-            DTO는 단순하게 데이터를 옮기기 위해 사용하는 전달자 역할
-            -> 그래서 별도의 비지니스 로직이 필요하지 않다.
+                DTO (Data Transfer Object) - 계층끼리 데이터를 교환하기 위해 사용하는 객체
+                DAO는 데이터베이스와 연결되고, 데이터를 조회하고 수정하는 사용되는 객체라 비교가 필요하다.
+                DAO의 경우에는 데이터 수정 관련된 로직이 포함되지만,
+                DTO는 단순하게 데이터를 옮기기 위해 사용하는 전달자 역할
+                -> 그래서 별도의 비지니스 로직이 필요하지 않다.
 
-        이후 service와 동일한 라인에 controller 패키지 생성 후, BlogApiController.java 생성.
+            이후 service와 동일한 라인에 controller 패키지 생성 후, BlogApiController.java 생성.
+
+            //혼자 정리
+            클라이언트에서 글을 적는다, 글을 적으면 @PostMapping된 함수를 호출하고, 매개변수에 있는
+            @ResponceBody가 붙어있는 매개변수 함수 호출해서, 값을 넘겨준다.
+            이후 Service 객체한테 넘겨주면 toEntity를 이용해 Request를 Article로 만들고,
+            BlogRepository를 통해 DB에 저장한 뒤에, 결과값으로 저장된 Article을 돌려준다.
+            이후 브라우저 창에 CREATED status를 돌려주면서 저장된 글을 보여준다.
  */
