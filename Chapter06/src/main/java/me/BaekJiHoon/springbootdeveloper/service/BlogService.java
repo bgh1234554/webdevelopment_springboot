@@ -6,6 +6,8 @@ import me.BaekJiHoon.springbootdeveloper.dto.AddArticleRequest;
 import me.BaekJiHoon.springbootdeveloper.repository.BlogRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor //final이 붙거나 @NotNull이 붙은 필드의 생성자 추가
 @Service //빈으로 등록
 //서비스는 Repository와 통신을 한다.
@@ -32,4 +34,25 @@ public class BlogService {
    블로그 글을 생성하는 BlogService의 save()메서드를 호출
    -> 생성된 블로그 글을 반환하는 작업을 하는 addArticle() 메서드를 작성할 예정.
      */
+    public List<Article> findAll(){
+        return blogRepository.findAll();
+    }
+    /*
+        JpaRepository에서 지원하는 findAll()을 호출해 article 테이블에 저장되어 있는 모든 데이터를 조회
+
+        응답을 위한 dto 생성. ArticleResponse.java 만들기.
+        (글을 올리는 건 request, 결과값을 받는건 response.)
+        (dto 패키지 하에 Request와 Response 패키지를 따로 만드는 경우도 있다.)
+        -> BlogApiController로 이동.
+     */
+    //특정 아이디를 가진 글만 조회하기. getMapping에 해당하는 메서드 하나 더 써보기.
+    public Article findById(long id){ //id는 PK니까 단 하나밖에 존재하지 않는다.
+        //JAVA 9에 추가된 Optional 클래스에 있는 메서드.
+        return blogRepository.findById(id).orElseThrow(()->new IllegalArgumentException("not found"+id)); //null일 경우를 대비하기 위한 orElse
+        //Service 작성했으니까 Controller 이동.
+    }
+    //삭제 메서드 정의
+    public void delete(long id){
+        blogRepository.deleteById(id);
+    }
 }

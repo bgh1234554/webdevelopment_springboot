@@ -3,12 +3,13 @@ package me.BaekJiHoon.springbootdeveloper.controller;
 import lombok.RequiredArgsConstructor;
 import me.BaekJiHoon.springbootdeveloper.domain.Article;
 import me.BaekJiHoon.springbootdeveloper.dto.AddArticleRequest;
+import me.BaekJiHoon.springbootdeveloper.dto.ArticleResponse;
 import me.BaekJiHoon.springbootdeveloper.service.BlogService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController //역할 명시
@@ -69,5 +70,49 @@ public class BlogApiController {
             요약
             어플리케이션을 실행하면 자동으로 생성한 엔티티 내용을 바탕으로 테이블이 생성되고,
             우리가 요청한 POST 요청에 의해 INSERT 문이 실행되어 실제로 데이터가 저장되었다.
+     */
+
+    //글을 전부 읽어온다.
+    @GetMapping("/api/articles")
+    public ResponseEntity<List<ArticleResponse>> findAllArticles(){
+        List<ArticleResponse> articles = blogService.findAll().stream().map(ArticleResponse::new).toList();
+        return ResponseEntity.ok().body(articles);
+    }
+    /*
+        /api/articles GET 요청이 들어오면 Service 계층의 글 전체를 조회하는 findAll() 메서드를 호출.
+        -> 다음 응답용 객체인 ArticleResponse를 파싱해서 body에 담아 클라이언트에 전송
+        -> 여기선 .stream() 을 사용해 적용함
+
+        * stream - JAVA 8에 추가된 기능.
+     */
+    @GetMapping("/api/articles/{id}")
+    //URL 경로에서 id 값을 추출해서 가지고 온다.
+    public ResponseEntity<ArticleResponse> findArticle(@PathVariable long id){
+        // URL에서 {id}에 해당하는 값이 id로 들어가게 한다.
+        Article article = blogService.findById(id);
+        //글 하나니까 새로 객체를 다른 줄로 만들 필요 없이 바로 new 생성자로 만든다.
+        return ResponseEntity.ok().body(new ArticleResponse(article));
+    }
+    /*
+    @PathVariable - URL에서 값을 가져오는 Annotation이다.
+        /api/articles/3 GET 요청을 받으면 id에 3이 argument로 들어오게 된다.
+        이 값이 서비스 클래스의 findById() 메서드로 넘어가서 3번 블로그 글을 찾아온다.
+        그 글을 찾으면 3번 글의 정보를 body에 담아서 웹브라우저로 가지고 온다.
+     */
+    @DeleteMapping("/api/articles/{id}")
+    //void도 참조 클래스가 있다.
+    public ResponseEntity<Void> deleteArticle(@PathVariable long id){
+        blogService.delete(id);
+        return ResponseEntity.ok().build(); //body에 담을 것이 없어서 build 사용.
+    }
+    /*
+        @PathVariable 통해서 {id}에 해당하는 값이 들어온다.
+        이후 POSTMAN 통해 확인하기
+        GET으로 호출하면 sql에 저장된 데이터가 나오고
+        이후 DELETE로 .../1 SEND, 다시 GET로 확인.
+        사라져있는 것을 확인할 수 있음.
+        이제 .../1로 GET해도 조회가 안됨.
+
+        확인 이후 테스트 코드 작성.
      */
 }
