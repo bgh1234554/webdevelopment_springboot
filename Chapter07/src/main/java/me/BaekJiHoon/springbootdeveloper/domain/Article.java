@@ -8,7 +8,13 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import java.time.LocalDateTime;
+
+@EntityListeners(AuditingEntityListener.class)
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -23,6 +29,14 @@ public class Article {
 
     @Column (name="content",nullable = false)
     private String content;
+
+    @CreatedDate //글이 생성될 때의 생성 시간을 저장
+    @Column (name="created_at")
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate //마지막으로 수정되었을 때의 시간 저장
+    @Column(name="updated_at")
+    private LocalDateTime updatedAt;
 
     @Builder //Builder 패턴으로 객체 생성. 명시적으로 어떤 필드에 어떤 값이 들어가는지 볼 수 있어서 많이 사용한다.
     public Article(String title, String content){
