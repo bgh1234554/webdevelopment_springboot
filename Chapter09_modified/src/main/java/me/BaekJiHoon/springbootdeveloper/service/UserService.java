@@ -31,4 +31,7 @@ public class UserService {
 
                 controller 패키지에 UserApiController.java 파일을 만드세요.
      */
+    public User findById(Long id){
+        return userRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("unexpected user"));
+    }
 }
