@@ -37,6 +37,7 @@ public class BlogViewController {
         return "article";
     }
 
+    //RequestParam ...?id=... (article.html 28번째 줄 참조)
     @GetMapping("/new-article")
     public String newArticle(@RequestParam(required = false) Long id, Model model) {
         if(id == null) {
