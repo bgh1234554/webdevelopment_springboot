@@ -1,0 +1,28 @@
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    defer-datasource-initialization: true
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa  # 사용자이름 추가
+  h2:
+    console:
+      enabled:
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: # 여기에 ID 입력
+            client-secret: # 여기에 보안 비밀번호 입력
+            scope:
+              - email
+              - profile
+
+jwt:
+  issuer: maybeags@gmail.com
+  secret_key: study-springboot
+
