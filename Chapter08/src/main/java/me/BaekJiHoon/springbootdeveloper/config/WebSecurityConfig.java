@@ -2,6 +2,7 @@ package me.BaekJiHoon.springbootdeveloper.config;
 
 import lombok.RequiredArgsConstructor;
 import me.BaekJiHoon.springbootdeveloper.service.UserDetailService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -21,6 +22,7 @@ import static org.springframework.boot.autoconfigure.security.servlet.PathReques
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class WebSecurityConfig {
+
     private final UserDetailService userService;
 
     //1. 스프링 시큐리티 기능 비활성화
@@ -106,4 +108,25 @@ public class WebSecurityConfig {
     회원 가입
         서비스 메서드 작성 -> 사용자 정보를 담고 있는 객체를 만들 수 있도록 하기
             -> dto 객체에 AddUserRequest.java 파일 생성
+ */
+/*
+스프링 시큐리티 기능 비활성화:
+configure() 메서드는 특정 리소스에 대해 시큐리티를 비활성화합니다. 예를 들어, H2 콘솔과 정적 리소스(/static/**)에 대해 시큐리티 검사를 하지 않도록 설정합니다.
+특정 HTTP 요청에 대한 웹 기반 보안 구성:
+securityFilterChain() 메서드는 HTTP 보안 설정을 구성합니다.
+인증 / 인가 설정:
+authorizeRequests() 메서드는 특정 경로에 대한 접근 권한을 설정합니다. /login, /signup, /user 경로는 누구나 접근 가능하도록 설정하고, 나머지 경로는 인증이 필요하도록 설정합니다.
+폼 기반 로그인 설정:
+formLogin() 메서드는 폼 기반 로그인을 설정합니다. 로그인 페이지 경로와 로그인 성공 후 이동할 경로를 설정합니다.
+로그아웃 설정:
+logout() 메서드는 로그아웃 설정을 구성합니다. 로그아웃 성공 후 이동할 경로와 세션 무효화 설정을 포함합니다.
+CSRF 설정 비활성화:
+csrf() 메서드는 CSRF 보호를 비활성화합니다.
+인증 관리자 관련 설정:
+authenticationManager() 메서드는 인증 관리자 빈을 설정합니다.
+사용자 정보 서비스 설정:
+DaoAuthenticationProvider를 사용하여 사용자 정보 서비스와 비밀번호 인코더를 설정합니다.
+패스워드 인코더 빈 등록:
+bCryptPasswordEncoder() 메서드는 비밀번호를 암호화하는 인코더를 빈으로 등록합니다.
+이 코드는 스프링 시큐리티의 기본적인 설정을 보여주며, 각 부분이 어떻게 동작하는지 설명합니다.
  */

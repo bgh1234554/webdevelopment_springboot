@@ -29,10 +29,14 @@ public class User implements UserDetails {  // UserDetails를 상속 받아 인�
     @Column(name = "password")
     private String password;
 
+    @Column(name="nickname", unique = true)
+    private String nickname;
+
     @Builder
-    public User(String email, String password, String auth) {
+    public User(String email, String password, String nickname) {
         this.email = email;
         this.password = password;
+        this.nickname = nickname;
     }
 
     @Override  // 권한 반환
@@ -79,6 +83,17 @@ public class User implements UserDetails {  // UserDetails를 상속 받아 인�
         // 계정이 사용 가능한지 확인하는 로직
         return true;    // true -> 사용 가능
     }
+
+    //사용자 이름 변경 파트
+    public User update(String nickanme){
+        this.nickname=nickname;
+        return this;
+    }
+    /*
+        리소스 서버에서 보내주는 사용자 정보를 불러오는 메서드 -> loadUser()
+        -> users 테이블에서 사용자 정보가 있다면 이름을 업데이트.
+        -> 없다면 saveOrUpdate() 메서드를 통해서 users 테이블에 회원 데이터를 추가한다.
+     */
 }
 /*
     User 클래스가 상속한 UserDetails 클래스는 스프링 시큐리티에서 사용자의 인증 정보를 담아두는

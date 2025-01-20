@@ -31,7 +31,7 @@ public class SpringBootDeveloperApplication {
 
        1. 스프링 시큐리티
         1) 인증 vs 인가
-            (1) 인증 (Authentification) : 사용자의 신원을 입증하는 과정
+            (1) 인증 (Authentication) : 사용자의 신원을 입증하는 과정
                 사용자가 사이트에 로그인할 때 누구인지 확인하는 과정.
             (2) 인가 (Authorization) : 사이트에 특정 부분에 접근할 수 있는지 권한을 확인하는 작업
                 관리자는 관리자 탭에 들어갈 수 있지만 일반 사용자는 관리자 페이지에 들어갈 수 없다.

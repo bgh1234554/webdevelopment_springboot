@@ -17,8 +17,8 @@ public class BlogService {
     private final BlogRepository blogRepository;
 
     // 블로그 글 추가 메서드
-    public Article save(AddArticleRequest request) {
-        return blogRepository.save(request.toEntity());
+    public Article save(AddArticleRequest request, String username) {
+        return blogRepository.save(request.toEntity(username));
     }
     /*
         @Servie : 해당 클래스를 빈으로 서블릿 컨테이너에 등록해줍니다.

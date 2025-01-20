@@ -12,9 +12,9 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public Long save(AddUserRequest dto) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return userRepository.save(User.builder()
                         .email(dto.getEmail())
                 // 1. 패스워드 암호화
@@ -33,5 +33,9 @@ public class UserService {
      */
     public User findById(Long id){
         return userRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("unexpected user"));
+    }
+
+    public User findByEmail(String email){
+        return userRepository.findByEmail(email).orElseThrow(()-> new IllegalArgumentException("unexpected user"));
     }
 }
