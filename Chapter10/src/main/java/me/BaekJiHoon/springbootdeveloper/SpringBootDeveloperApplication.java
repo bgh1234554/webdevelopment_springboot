@@ -153,3 +153,11 @@ public class SpringBootDeveloperApplication {
 
             Springbootdeveloper 패키지 내에 util 패키지 생성
  */
+/*
+    현재 AccessToken 기준
+    -> 현재 OAuth를 통해 로그인함.
+    access_token과 refresh_token을 받았다.
+
+    -> 로그인 이미 data.sql을 통해 1번글부터 3번글까지는 있는 상황.
+    -> 이들의 글은 유저 이름이 다르기때문에 수정, 삭제할 수가 없다.
+ */

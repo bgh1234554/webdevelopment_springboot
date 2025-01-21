@@ -6,6 +6,7 @@ import me.BaekJiHoon.springbootdeveloper.domain.Article;
 import me.BaekJiHoon.springbootdeveloper.dto.AddArticleRequest;
 import me.BaekJiHoon.springbootdeveloper.dto.UpdateArticleRequest;
 import me.BaekJiHoon.springbootdeveloper.repository.BlogRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,20 +62,43 @@ public class BlogService {
     // BlogApiController.java
 
     // 삭제 메서드 정의
-    public void delete(long id) {
-        blogRepository.deleteById(id);
+//    public void delete(long id) {
+//        blogRepository.deleteById(id);
+//    }
+//    // 컨트롤러로 가면 됩니다. /api/articles/{id}
+//
+//    @Transactional
+//    public Article update(long id, UpdateArticleRequest request) {
+//        Article article = blogRepository.findById(id)
+//                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
+//
+//        // domain -> Article에서 정의한 update()를 사용.
+//        article.update(request.getTitle(), request.getContent());
+//
+//        return article;
+//    }
+
+    public void delete(long id){
+        Article article = blogRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("not found :"+id));
+        authorizeArticleAuthor(article);
+        blogRepository.delete(article);
     }
-    // 컨트롤러로 가면 됩니다. /api/articles/{id}
 
     @Transactional
-    public Article update(long id, UpdateArticleRequest request) {
-        Article article = blogRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("not found : " + id));
-
-        // domain -> Article에서 정의한 update()를 사용.
+    public Article update(long id, UpdateArticleRequest request){
+        Article article = blogRepository.findById(id).orElseThrow(
+                ()->new IllegalArgumentException("not found :"+id));
+        authorizeArticleAuthor(article);
         article.update(request.getTitle(), request.getContent());
-
         return article;
+    }
+
+    private void authorizeArticleAuthor(Article article) {
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!article.getAuthor().equals(userName)){
+            throw new IllegalArgumentException("not authorized");
+        }
     }
     /*
         트랜잭션 - 데이터베이스에서 데이터를 바꾸기 위한 작업 단위를 의미함.
